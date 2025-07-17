@@ -58,6 +58,11 @@ MONGO_URI=<your-mongodb-connection-string>
 JWT_SECRET=<your-jwt-secret>
 ```
 
+Create a `.env` file in the `client/` directory with the following:
+```
+VITE_BACKEND_URL=<your-backend-url>
+```
+
 ### 3. Install Dependencies
 #### Backend
 ```bash
