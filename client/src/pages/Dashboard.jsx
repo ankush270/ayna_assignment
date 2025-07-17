@@ -133,13 +133,13 @@ const Dashboard = () => {
       setFormSuccess(true);
       setTimeout(() => {
         setFormSuccess(false);
-        setShowModal(false);
-        setFormTitle('');
-        setQuestions([
-          { text: '', type: 'text', options: ['', ''] },
-          { text: '', type: 'text', options: ['', ''] },
-          { text: '', type: 'text', options: ['', ''] },
-        ]);
+      setShowModal(false);
+      setFormTitle('');
+      setQuestions([
+        { text: '', type: 'text', options: ['', ''] },
+        { text: '', type: 'text', options: ['', ''] },
+        { text: '', type: 'text', options: ['', ''] },
+      ]);
         setFormStep(1);
       }, 1200);
     } catch (err) {
@@ -263,7 +263,7 @@ const Dashboard = () => {
         <div className="flex items-center gap-4">
           {/* Logo Avatar */}
           <img src="/logo.svg" alt="Ayna Logo" className="w-14 h-14 " />
-          <div>
+        <div>
             <motion.h1
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -384,7 +384,7 @@ const Dashboard = () => {
               <div className="absolute left-2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-200 to-purple-200 rounded-full" />
               {activity.length === 0 && <div className="py-3 text-gray-500">No recent activity.</div>}
               <ul className="space-y-6">
-                {activity.map((item, idx) => (
+              {activity.map((item, idx) => (
                   <motion.li
                     key={idx}
                     initial={{ opacity: 0, x: 40 }}
@@ -401,23 +401,23 @@ const Dashboard = () => {
                       )}
                     </span>
                     <div className="flex-1">
-                      <span className="text-gray-700">
-                        {item.type === 'form_created' && (
-                          <>
-                            Form <span className="font-semibold">{item.formTitle}</span> was created
-                          </>
-                        )}
-                        {item.type === 'new_responses' && (
-                          <>
-                            You received <span className="font-semibold">{item.count} new response{item.count > 1 ? 's' : ''}</span> on <span className="font-semibold">{item.formTitle}</span>
-                          </>
-                        )}
-                      </span>
+                  <span className="text-gray-700">
+                    {item.type === 'form_created' && (
+                      <>
+                        Form <span className="font-semibold">{item.formTitle}</span> was created
+                      </>
+                    )}
+                    {item.type === 'new_responses' && (
+                      <>
+                        You received <span className="font-semibold">{item.count} new response{item.count > 1 ? 's' : ''}</span> on <span className="font-semibold">{item.formTitle}</span>
+                      </>
+                    )}
+                  </span>
                       <div className="text-xs text-gray-400 mt-1">{timeAgo(item.time)}</div>
                     </div>
                   </motion.li>
-                ))}
-              </ul>
+              ))}
+            </ul>
             </div>
           )}
         </motion.div>
@@ -514,7 +514,7 @@ const Dashboard = () => {
                   <div className="text-xl font-semibold text-green-600">Form Created!</div>
                 </motion.div>
               ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-6">
+              <form onSubmit={handleFormSubmit} className="space-y-6">
                   {formStep === 1 && (
                     <motion.div
                       key="step1"
@@ -523,15 +523,15 @@ const Dashboard = () => {
                       exit={{ x: -40, opacity: 0 }}
                       transition={{ duration: 0.4 }}
                     >
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Form Title</label>
-                      <input
-                        type="text"
-                        value={formTitle}
-                        onChange={e => setFormTitle(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Enter form title"
-                        required
-                      />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Form Title</label>
+                  <input
+                    type="text"
+                    value={formTitle}
+                    onChange={e => setFormTitle(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter form title"
+                    required
+                  />
                       <div className="flex justify-end mt-4">
                         <button
                           type="button"
@@ -541,7 +541,7 @@ const Dashboard = () => {
                         >
                           Next
                         </button>
-                      </div>
+                </div>
                     </motion.div>
                   )}
                   {formStep === 2 && (
@@ -552,88 +552,88 @@ const Dashboard = () => {
                       exit={{ x: -40, opacity: 0 }}
                       transition={{ duration: 0.4 }}
                     >
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Questions</label>
-                      <div className="space-y-3">
-                        {questions.map((q, idx) => (
-                          <div key={idx} className="flex flex-col gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                            <div className="flex items-center gap-2">
-                              <input
-                                type="text"
-                                value={q.text}
-                                onChange={e => handleQuestionChange(idx, e.target.value)}
-                                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder={`Question ${idx + 1}`}
-                                required
-                              />
-                              <select
-                                value={q.type}
-                                onChange={e => handleQuestionTypeChange(idx, e.target.value)}
-                                className="px-2 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none"
-                              >
-                                <option value="text">Text</option>
-                                <option value="mcq">MCQ</option>
-                              </select>
-                              {questions.length > 3 && (
-                                <button
-                                  type="button"
-                                  onClick={() => handleRemoveQuestion(idx)}
-                                  className="text-red-500 hover:text-red-700"
-                                >
-                                  <X className="w-4 h-4" />
-                                </button>
-                              )}
-                            </div>
-                            {q.type === 'mcq' && (
-                              <div className="pl-2">
-                                <label className="block text-xs text-gray-500 mb-1">MCQ Options</label>
-                                <div className="space-y-2">
-                                  {q.options.map((opt, optIdx) => (
-                                    <div key={optIdx} className="flex items-center gap-2">
-                                      <input
-                                        type="text"
-                                        value={opt}
-                                        onChange={e => handleOptionChange(idx, optIdx, e.target.value)}
-                                        className="flex-1 px-3 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
-                                        placeholder={`Option ${optIdx + 1}`}
-                                        required
-                                      />
-                                      {q.options.length > 2 && (
-                                        <button
-                                          type="button"
-                                          onClick={() => handleRemoveOption(idx, optIdx)}
-                                          className="text-red-400 hover:text-red-600"
-                                        >
-                                          <X className="w-4 h-4" />
-                                        </button>
-                                      )}
-                                    </div>
-                                  ))}
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Questions</label>
+                  <div className="space-y-3">
+                    {questions.map((q, idx) => (
+                      <div key={idx} className="flex flex-col gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={q.text}
+                            onChange={e => handleQuestionChange(idx, e.target.value)}
+                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder={`Question ${idx + 1}`}
+                            required
+                          />
+                          <select
+                            value={q.type}
+                            onChange={e => handleQuestionTypeChange(idx, e.target.value)}
+                            className="px-2 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none"
+                          >
+                            <option value="text">Text</option>
+                            <option value="mcq">MCQ</option>
+                          </select>
+                          {questions.length > 3 && (
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveQuestion(idx)}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          )}
+                        </div>
+                        {q.type === 'mcq' && (
+                          <div className="pl-2">
+                            <label className="block text-xs text-gray-500 mb-1">MCQ Options</label>
+                            <div className="space-y-2">
+                              {q.options.map((opt, optIdx) => (
+                                <div key={optIdx} className="flex items-center gap-2">
+                                  <input
+                                    type="text"
+                                    value={opt}
+                                    onChange={e => handleOptionChange(idx, optIdx, e.target.value)}
+                                    className="flex-1 px-3 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
+                                    placeholder={`Option ${optIdx + 1}`}
+                                    required
+                                  />
+                                  {q.options.length > 2 && (
+                                    <button
+                                      type="button"
+                                      onClick={() => handleRemoveOption(idx, optIdx)}
+                                      className="text-red-400 hover:text-red-600"
+                                    >
+                                      <X className="w-4 h-4" />
+                                    </button>
+                                  )}
                                 </div>
-                                {q.options.length < 5 && (
-                                  <button
-                                    type="button"
-                                    onClick={() => handleAddOption(idx)}
-                                    className="mt-2 flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-medium"
-                                  >
-                                    <PlusCircle className="w-4 h-4" />
-                                    Add Option
-                                  </button>
-                                )}
-                              </div>
+                              ))}
+                            </div>
+                            {q.options.length < 5 && (
+                              <button
+                                type="button"
+                                onClick={() => handleAddOption(idx)}
+                                className="mt-2 flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-medium"
+                              >
+                                <PlusCircle className="w-4 h-4" />
+                                Add Option
+                              </button>
                             )}
                           </div>
-                        ))}
+                        )}
                       </div>
-                      {questions.length < 5 && (
-                        <button
-                          type="button"
-                          onClick={handleAddQuestion}
-                          className="mt-3 flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium"
-                        >
-                          <PlusCircle className="w-4 h-4" />
-                          Add Question
-                        </button>
-                      )}
+                    ))}
+                  </div>
+                  {questions.length < 5 && (
+                    <button
+                      type="button"
+                      onClick={handleAddQuestion}
+                      className="mt-3 flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium"
+                    >
+                      <PlusCircle className="w-4 h-4" />
+                      Add Question
+                    </button>
+                  )}
                       <div className="flex justify-between mt-4">
                         <button
                           type="button"
@@ -642,16 +642,16 @@ const Dashboard = () => {
                         >
                           Back
                         </button>
-                        <button
-                          type="submit"
-                          className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold shadow hover:from-blue-700 hover:to-purple-700 transition-all"
-                        >
-                          Create Form <ArrowRight className="w-4 h-4" />
-                        </button>
-                      </div>
+                  <button
+                    type="submit"
+                    className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold shadow hover:from-blue-700 hover:to-purple-700 transition-all"
+                  >
+                    Create Form <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
                     </motion.div>
                   )}
-                </form>
+              </form>
               )}
             </motion.div>
           </motion.div>

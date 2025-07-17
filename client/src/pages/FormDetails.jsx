@@ -20,7 +20,6 @@ const FormDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const frontendUrl = import.meta.env.VITE_FRONTEND_URL || window.location.origin;
 
   useEffect(() => {
     if (!token) {
@@ -56,7 +55,7 @@ const FormDetails = () => {
   }, [location.state]);
 
   const handleShare = () => {
-    const publicUrl = `${frontendUrl}/public/forms/${id}`;
+    const publicUrl = `${window.location.origin}/public/forms/${id}`;
     navigator.clipboard.writeText(publicUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

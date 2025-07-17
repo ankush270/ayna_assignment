@@ -142,7 +142,7 @@ const PublicForm = () => {
         </motion.div>
         <form className="space-y-6 md:space-y-8" onSubmit={handleSubmit}>
           <AnimatePresence>
-            {form.questions.map((q, idx) => (
+          {form.questions.map((q, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, x: 40 }}
@@ -151,42 +151,42 @@ const PublicForm = () => {
                 transition={{ delay: 0.1 * idx, duration: 0.5, type: 'spring' }}
                 className={`p-4 md:p-5 rounded-2xl border border-blue-100 bg-white shadow-sm flex flex-col gap-2 ${submitError ? 'animate-shake' : ''}`}
               >
-                <label className="block font-semibold text-gray-800 mb-1">Q{idx + 1}: {q.text}</label>
-                {q.type === 'text' ? (
-                  <input
-                    type="text"
+              <label className="block font-semibold text-gray-800 mb-1">Q{idx + 1}: {q.text}</label>
+              {q.type === 'text' ? (
+                <input
+                  type="text"
                     className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 text-base bg-blue-50/60 transition-shadow focus:shadow-lg hover:shadow-md"
-                    placeholder="Your answer..."
-                    value={answers[idx]}
-                    onChange={e => handleChange(idx, e.target.value)}
-                    required
-                    disabled={success}
-                  />
-                ) : (
-                  <div className="space-y-2">
-                    {q.options.map((opt, oidx) => (
+                  placeholder="Your answer..."
+                  value={answers[idx]}
+                  onChange={e => handleChange(idx, e.target.value)}
+                  required
+                  disabled={success}
+                />
+              ) : (
+                <div className="space-y-2">
+                  {q.options.map((opt, oidx) => (
                       <label key={oidx} className="flex items-center gap-3 cursor-pointer group">
-                        <input
-                          type="radio"
-                          name={`q${idx}`}
-                          id={`q${idx}_opt${oidx}`}
+                      <input
+                        type="radio"
+                        name={`q${idx}`}
+                        id={`q${idx}_opt${oidx}`}
                           className="hidden peer"
-                          value={opt.text}
-                          checked={answers[idx] === opt.text}
-                          onChange={() => handleRadioChange(idx, opt.text)}
-                          required
-                          disabled={success}
-                        />
+                        value={opt.text}
+                        checked={answers[idx] === opt.text}
+                        onChange={() => handleRadioChange(idx, opt.text)}
+                        required
+                        disabled={success}
+                      />
                         <span className="w-5 h-5 rounded-full border-2 border-blue-400 flex items-center justify-center transition-all peer-checked:bg-gradient-to-br peer-checked:from-blue-500 peer-checked:to-purple-500 peer-checked:border-purple-500">
                           <span className="w-2.5 h-2.5 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-all"></span>
                         </span>
                         <span className="text-gray-700 group-hover:text-blue-600 transition-colors">{opt.text}</span>
                       </label>
-                    ))}
-                  </div>
-                )}
+                  ))}
+                </div>
+              )}
               </motion.div>
-            ))}
+          ))}
           </AnimatePresence>
           <div className="text-center mt-4">
             <motion.button

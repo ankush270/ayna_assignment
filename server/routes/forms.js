@@ -82,7 +82,8 @@ router.get('/:id/responses', authenticateToken, async (req, res) => {
   try {
     const form = await Form.findOne({ _id: req.params.id, createdBy: req.user.userId });
     if (!form) {
-      return res.status(404).json({ message: 'Form not found or not authorized' });
+      // Instead of 404, return empty array for responses
+      return res.status(200).json({ responses: [] });
     }
     const responses = await FormResponse.find({ form: form._id }).sort({ createdAt: -1 });
     res.json({ responses });
