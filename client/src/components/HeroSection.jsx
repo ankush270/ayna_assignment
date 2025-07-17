@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
@@ -12,12 +13,15 @@ const HeroSection = () => {
           Create beautiful forms. Share links. See feedback in real-time.
         </h2>
         <div className="flex gap-4">
-          <a href="/register" className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors text-base md:text-lg">
+          <Link to="/register" className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors text-base md:text-lg">
             Create a Form
-          </a>
-          <a href="/demo" className="px-6 py-3 bg-white border border-blue-600 text-blue-600 font-semibold rounded-lg shadow-md hover:bg-blue-50 transition-colors text-base md:text-lg">
+          </Link>
+          <Link to="/demo" className="px-6 py-3 bg-white border border-blue-600 text-blue-600 font-semibold rounded-lg shadow-md hover:bg-blue-50 transition-colors text-base md:text-lg">
             Try Demo
-          </a>
+          </Link>
+          <Link to="/login" className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition-colors text-base md:text-lg">
+            Login
+          </Link>
         </div>
       </div>
       {/* Right: Visual */}
