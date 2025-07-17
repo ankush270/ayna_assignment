@@ -47,7 +47,7 @@ AYNA is a modern full-stack web application for creating, sharing, and collectin
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/ankush270/ayna_assignment.git
 cd Ayna_assignment
 ```
 
