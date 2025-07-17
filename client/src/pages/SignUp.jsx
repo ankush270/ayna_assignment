@@ -12,7 +12,9 @@ import {
   Star
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerStart, registerSuccess, registerFailure } from '../store.js';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -24,9 +26,11 @@ const SignUp = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
   const [errors, setErrors] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -78,17 +82,38 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
-    setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      // Handle successful signup here
-      console.log('Signup successful:', formData);
-    }, 2000);
+
+    dispatch(registerStart());
+    setErrors({});
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstname: formData.firstName,
+          lastname: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        dispatch(registerFailure(data.message || 'Registration failed'));
+        setErrors({ general: data.message || 'Registration failed' });
+        return;
+      }
+      dispatch(registerSuccess());
+      navigate('/login'); // Navigate to login on success
+      setErrors({}); // Clear general error on success
+    } catch (err) {
+      dispatch(registerFailure('Server error. Please try again.'));
+      setErrors({ general: 'Server error. Please try again.' });
+    }
   };
 
 
@@ -122,7 +147,7 @@ const SignUp = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-green-400/10 to-blue-400/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative w-full max-w-6xl mx-auto">
+      <div className="relative w-full max-w-4xl mx-auto">
         {/* Back to Home Link */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -139,13 +164,13 @@ const SignUp = () => {
           </Link>
         </motion.div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-2 gap-0 min-h-[600px] rounded-3xl overflow-hidden shadow-2xl">
           {/* Left: Register SVG */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col items-center justify-center text-center"
+            className="bg-white/80 backdrop-blur-sm border border-white/20 p-8 lg:p-12 flex flex-col items-center justify-center text-center w-full h-full rounded-l-3xl"
           >
             <motion.img
               src="/register.svg"
@@ -175,7 +200,7 @@ const SignUp = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 lg:p-12"
+            className="bg-white/80 backdrop-blur-sm border border-white/20 p-8 lg:p-12 flex flex-col justify-center w-full h-full rounded-r-3xl"
           >
             {/* Header */}
             <div className="text-center mb-8">
@@ -410,16 +435,16 @@ const SignUp = () => {
               {/* Submit Button */}
               <motion.button
                 type="submit"
-                disabled={isLoading}
+                disabled={auth.loading}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={`w-full py-3 px-6 rounded-xl font-semibold text-white transition-all duration-300 flex items-center justify-center gap-2 ${
-                  isLoading
+                  auth.loading
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl'
                 }`}
               >
-                {isLoading ? (
+                {auth.loading ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     Creating account...
@@ -442,6 +467,16 @@ const SignUp = () => {
                 </Link>
               </p>
             </div>
+            {errors.general && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-1 text-red-500 text-sm mt-2"
+              >
+                <AlertCircle className="w-4 h-4" />
+                {errors.general}
+              </motion.div>
+            )}
           </motion.div>
 
 

@@ -10,7 +10,9 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginStart, loginSuccess, loginFailure } from '../store.js';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -18,8 +20,10 @@ const Login = () => {
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -57,17 +61,36 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
-    setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      // Handle successful login here
-      console.log('Login successful:', formData);
-    }, 2000);
+
+    dispatch(loginStart());
+    setErrors({});
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        dispatch(loginFailure(data.message || 'Login failed'));
+        setErrors({ general: data.message || 'Login failed' });
+        return;
+      }
+      localStorage.setItem('token', data.token);
+      dispatch(loginSuccess({ token: data.token, user: data.user }));
+      navigate('/dashboard'); // Navigate to dashboard on success
+    } catch (err) {
+      dispatch(loginFailure('Server error. Please try again.'));
+      setErrors({ general: 'Server error. Please try again.' });
+    }
   };
 
 
@@ -80,7 +103,7 @@ const Login = () => {
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-gradient-to-r from-pink-400/20 to-orange-400/20 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative w-full max-w-6xl mx-auto">
+      <div className="relative w-full max-w-4xl mx-auto">
         {/* Back to Home Link */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -97,13 +120,13 @@ const Login = () => {
           </Link>
         </motion.div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-2 gap-0 min-h-[600px] rounded-3xl overflow-hidden shadow-2xl">
           {/* Left: Login Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 lg:p-12"
+            className="bg-white/80 backdrop-blur-sm border border-white/20 p-8 lg:p-12 flex flex-col justify-center w-full h-full rounded-l-3xl"
           >
             {/* Header */}
             <div className="text-center mb-8">
@@ -210,16 +233,16 @@ const Login = () => {
               {/* Submit Button */}
               <motion.button
                 type="submit"
-                disabled={isLoading}
+                disabled={auth.loading}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={`w-full py-3 px-6 rounded-xl font-semibold text-white transition-all duration-300 flex items-center justify-center gap-2 ${
-                  isLoading
+                  auth.loading
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl'
                 }`}
               >
-                {isLoading ? (
+                {auth.loading ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     Signing in...
@@ -231,6 +254,16 @@ const Login = () => {
                   </>
                 )}
               </motion.button>
+              {errors.general && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-1 text-red-500 text-sm mt-2"
+                >
+                  <AlertCircle className="w-4 h-4" />
+                  {errors.general}
+                </motion.div>
+              )}
             </form>
 
             {/* Divider */}
@@ -286,7 +319,7 @@ const Login = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col items-center justify-center text-center"
+            className="bg-white/80 backdrop-blur-sm border border-white/20 p-8 lg:p-12 flex flex-col items-center justify-center text-center w-full h-full rounded-r-3xl"
           >
             <motion.img
               src="/login.svg"
