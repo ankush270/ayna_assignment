@@ -13,9 +13,10 @@ const PublicForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(null);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/forms/public/${id}`)
+    fetch(`${backendUrl}/api/forms/public/${id}`)
       .then(res => res.json())
       .then(data => {
         if (data.form) {
@@ -51,7 +52,7 @@ const PublicForm = () => {
           answer: answers[idx],
         })),
       };
-      const res = await fetch(`http://localhost:5000/api/forms/public/${id}/submit`, {
+      const res = await fetch(`${backendUrl}/api/forms/public/${id}/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

@@ -19,13 +19,14 @@ const FormDetails = () => {
   const token = useSelector(state => state.auth.token) || localStorage.getItem('token');
   const navigate = useNavigate();
   const location = useLocation();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     if (!token) {
       navigate('/login');
       return;
     }
-    fetch(`http://localhost:5000/api/forms/${id}`, {
+    fetch(`${backendUrl}/api/forms/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -65,7 +66,7 @@ const FormDetails = () => {
     setLoadingResponses(true);
     setResponsesError(null);
     try {
-      const res = await fetch(`http://localhost:5000/api/forms/${id}/responses`, {
+      const res = await fetch(`${backendUrl}/api/forms/${id}/responses`, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
       const data = await res.json();

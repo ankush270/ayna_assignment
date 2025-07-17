@@ -36,13 +36,14 @@ const Forms = () => {
   const token = useSelector(state => state.auth.token) || localStorage.getItem('token');
   const navigate = useNavigate();
   const location = useLocation();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     if (!token) {
       navigate('/login');
       return;
     }
-    fetch('http://localhost:5000/api/forms/mine', {
+    fetch(`${backendUrl}/api/forms/mine`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -113,7 +114,7 @@ const Forms = () => {
       options: q.type === 'mcq' ? q.options.filter(opt => opt.trim() !== '').map(opt => ({ text: opt })) : []
     }));
     try {
-      const response = await fetch('http://localhost:5000/api/forms', {
+      const response = await fetch(`${backendUrl}/api/forms`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -135,7 +136,7 @@ const Forms = () => {
         { text: '', type: 'text', options: ['', ''] },
         { text: '', type: 'text', options: ['', ''] },
       ]);
-      fetch('http://localhost:5000/api/forms/mine', {
+      fetch(`${backendUrl}/api/forms/mine`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

@@ -39,6 +39,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector(state => state.auth.token) || localStorage.getItem('token');
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [showModal, setShowModal] = useState(false);
   const [formTitle, setFormTitle] = useState('');
   const [questions, setQuestions] = useState([
@@ -112,7 +113,7 @@ const Dashboard = () => {
       options: q.type === 'mcq' ? q.options.filter(opt => opt.trim() !== '').map(opt => ({ text: opt })) : []
     }));
     try {
-      const response = await fetch('http://localhost:5000/api/forms', {
+      const response = await fetch(`${backendUrl}/api/forms`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -155,7 +156,7 @@ const Dashboard = () => {
       setActivityError(null);
       try {
         // Simulate: fetch forms and responses, build activity feed
-        const formsRes = await fetch('http://localhost:5000/api/forms/mine', {
+        const formsRes = await fetch(`${backendUrl}/api/forms/mine`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const formsData = await formsRes.json();
@@ -169,7 +170,7 @@ const Dashboard = () => {
               time: form.createdAt,
             });
             // Fetch responses for each form
-            const respRes = await fetch(`http://localhost:5000/api/forms/${form._id}/responses`, {
+            const respRes = await fetch(`${backendUrl}/api/forms/${form._id}/responses`, {
               headers: { 'Authorization': `Bearer ${token}` },
             });
             const respData = await respRes.json();
@@ -205,14 +206,14 @@ const Dashboard = () => {
       let responsesCount = 0;
       let usersCount = 1; // Simulate 1 active user (current user)
       try {
-        const formsRes = await fetch('http://localhost:5000/api/forms/mine', {
+        const formsRes = await fetch(`${backendUrl}/api/forms/mine`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const formsData = await formsRes.json();
         if (formsData.forms) {
           formsCount = formsData.forms.length;
           for (const form of formsData.forms) {
-            const respRes = await fetch(`http://localhost:5000/api/forms/${form._id}/responses`, {
+            const respRes = await fetch(`${backendUrl}/api/forms/${form._id}/responses`, {
               headers: { 'Authorization': `Bearer ${token}` },
             });
             const respData = await respRes.json();

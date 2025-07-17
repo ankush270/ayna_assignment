@@ -24,6 +24,7 @@ const Login = () => {
   const auth = useSelector(state => state.auth);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -68,7 +69,7 @@ const Login = () => {
     setErrors({});
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(`${backendUrl}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
