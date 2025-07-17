@@ -50,6 +50,9 @@ const Dashboard = () => {
   const [activity, setActivity] = useState([]);
   const [activityLoading, setActivityLoading] = useState(true);
   const [activityError, setActivityError] = useState(null);
+  const [activityPage, setActivityPage] = useState(1);
+  const [activityTotalPages, setActivityTotalPages] = useState(1);
+  const ACTIVITY_PER_PAGE = 5;
   const [stats, setStats] = useState({ forms: 0, responses: 0, users: 1 });
   const [fabOpen, setFabOpen] = useState(false);
   const [formStep, setFormStep] = useState(1);
@@ -189,7 +192,11 @@ const Dashboard = () => {
         }
         // Sort by time desc
         activityArr.sort((a, b) => new Date(b.time) - new Date(a.time));
-        setActivity(activityArr.slice(0, 6));
+        // Pagination logic
+        const totalPages = Math.max(1, Math.ceil(activityArr.length / ACTIVITY_PER_PAGE));
+        setActivityTotalPages(totalPages);
+        const startIdx = (activityPage - 1) * ACTIVITY_PER_PAGE;
+        setActivity(activityArr.slice(startIdx, startIdx + ACTIVITY_PER_PAGE));
       } catch (err) {
         setActivityError('Failed to load activity');
       }
@@ -197,7 +204,7 @@ const Dashboard = () => {
     };
     fetchActivity();
     // eslint-disable-next-line
-  }, [token]);
+  }, [token, activityPage]);
 
   // Fetch dynamic stats
   useEffect(() => {
@@ -418,6 +425,26 @@ const Dashboard = () => {
                   </motion.li>
               ))}
             </ul>
+            {/* Pagination controls */}
+            {activityTotalPages > 1 && (
+              <div className="flex justify-center items-center gap-4 mt-6">
+                <button
+                  className="px-3 py-1 rounded bg-gray-100 text-gray-700 font-medium disabled:opacity-50"
+                  onClick={() => setActivityPage(p => Math.max(1, p - 1))}
+                  disabled={activityPage === 1}
+                >
+                  Previous
+                </button>
+                <span className="text-gray-600">Page {activityPage} of {activityTotalPages}</span>
+                <button
+                  className="px-3 py-1 rounded bg-gray-100 text-gray-700 font-medium disabled:opacity-50"
+                  onClick={() => setActivityPage(p => Math.min(activityTotalPages, p + 1))}
+                  disabled={activityPage === activityTotalPages}
+                >
+                  Next
+                </button>
+              </div>
+            )}
             </div>
           )}
         </motion.div>
