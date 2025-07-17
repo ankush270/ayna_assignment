@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const HeroSection = () => {
   return (
     <section className="flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-16 py-16 bg-gradient-to-br from-white to-blue-50 min-h-[70vh] relative overflow-hidden">
-      {/* Left: Text Content */}
+    
       <div className="w-full md:w-1/2 flex flex-col items-start justify-center z-10">
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
           Collect Better Feedback,<br className="hidden md:block" /> <span className="bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent">Instantly.</span>
@@ -24,14 +24,14 @@ const HeroSection = () => {
           </Link>
         </div>
       </div>
-      {/* Right: Visual */}
+      
       <div className="w-full md:w-1/2 flex items-center justify-center mb-10 md:mb-0 relative animate-slide-in-right">
         <img
           src="/hero.svg"
           alt="Admin dashboard and mobile form mockup"
           className="max-w-xs md:max-w-md w-full drop-shadow-xl rounded-lg"
         />
-        {/* Subtle floating animation */}
+      
         <style>{`
           @keyframes slide-in-right {
             0% { opacity: 0; transform: translateX(60px); }
@@ -42,7 +42,7 @@ const HeroSection = () => {
           }
         `}</style>
       </div>
-      {/* Optional: Subtle background illustration/gradient */}
+      
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute right-0 top-0 w-2/3 h-2/3 bg-gradient-to-br from-blue-100 to-transparent rounded-full blur-3xl opacity-40"></div>
       </div>

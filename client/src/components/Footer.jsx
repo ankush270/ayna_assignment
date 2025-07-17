@@ -52,25 +52,17 @@ const Footer = () => {
 
   return (
     <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
-      {/* Background decorations */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10"></div>
       <div className="absolute top-0 left-10 w-64 h-64 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-10 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-orange-400/20 rounded-full blur-3xl"></div>
       
-      {/* Main Footer Content */}
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                          {/* Top Section */}
          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
-           {/* Brand Section */}
            <div className="lg:col-span-1">
                          <div className="flex items-center gap-3 mb-3">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-2.5 h-2.5 text-white" />
-                </div>
+              <div className="flex items-center justify-center">
+                <img src="/logo.svg" alt="Ayna Logo" className="w-10 h-10 object-contain" />
               </div>
                              <div>
                  <h3 className="font-bold text-2xl text-white">AYNA</h3>
@@ -82,7 +74,7 @@ const Footer = () => {
                Transform your feedback collection.
              </p>
 
-                                      {/* Newsletter Signup */}
+                    
              <div className="space-y-2">
                <h4 className="font-semibold text-white flex items-center gap-2 text-base">
                  <Mail className="w-4 h-4" />
@@ -118,7 +110,7 @@ const Footer = () => {
              </div>
           </div>
 
-                                {/* Links Sections */}
+      
            {Object.entries(footerLinks).map(([category, links]) => (
              <div key={category} className="space-y-2">
                <h4 className="font-semibold text-white capitalize text-base">
@@ -145,15 +137,15 @@ const Footer = () => {
 
                  
 
-                          {/* Bottom Section */}
+                
          <div className="border-t border-white/10 pt-3">
            <div className="flex flex-col md:flex-row items-center justify-between gap-3">
-             {/* Copyright */}
+      
              <div className="text-gray-400 text-base">
-               <span>© 2024 AYNA</span>
+               <span>© 2025 AYNA</span>
              </div>
 
-             {/* Social Links */}
+         
              <div className="flex items-center gap-2">
                {socialLinks.map(({ icon: Icon, href, label }) => (
                  <motion.a
@@ -172,7 +164,7 @@ const Footer = () => {
          </div>
       </div>
 
-                    {/* Contact Info */}
+      
        <div className="relative border-t border-white/10 bg-black/20">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1">
            <div className="flex items-center justify-center text-gray-400 text-sm">

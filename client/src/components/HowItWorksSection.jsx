@@ -63,12 +63,10 @@ const HowItWorksSection = () => {
 
   return (
     <section className="how-it-works-section py-8 w-full px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background decorations */}
+     
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50/30"></div>
       <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-r from-green-400/10 to-blue-400/10 rounded-full blur-3xl"></div>
-      
-      {/* Section header */}
       <div className="relative text-center mb-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -99,7 +97,6 @@ const HowItWorksSection = () => {
         </motion.p>
       </div>
 
-      {/* Progress indicator */}
       <motion.div
         initial={{ opacity: 0, scaleX: 0 }}
         animate={isVisible ? { opacity: 1, scaleX: 1 } : {}}
@@ -141,8 +138,6 @@ const HowItWorksSection = () => {
           ))}
         </div>
       </motion.div>
-
-      {/* Steps grid */}
       <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto">
         {steps.map(({ icon: Icon, title, desc, gradient, bgGradient, time, features }, i) => (
           <motion.div
@@ -155,27 +150,22 @@ const HowItWorksSection = () => {
             }`}
             onClick={() => setActiveStep(i)}
           >
-            {/* Card background with gradient */}
             <div className={`relative h-full rounded-3xl bg-gradient-to-br ${bgGradient} p-5 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2 ${
               i === activeStep ? 'ring-2 ring-purple-500/30' : ''
             }`}>
               
-              {/* Badge */}
               <div className="absolute -top-3 -right-3">
                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${gradient} text-white shadow-lg`}>
                   {time}
                 </span>
               </div>
 
-              {/* Icon container with animated background */}
               <div className={`relative w-12 h-12 rounded-2xl bg-gradient-to-r ${gradient} p-2.5 mb-3 group-hover:scale-110 transition-transform duration-500`}>
                 <Icon className="w-6 h-6 text-white" />
-                
-                {/* Animated ring effect */}
+
                 <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${gradient} opacity-0 group-hover:opacity-20 group-hover:scale-125 transition-all duration-500`}></div>
               </div>
 
-              {/* Content */}
               <div className="space-y-2">
                 <h3 className="text-base font-bold text-gray-900 group-hover:text-gray-800 transition-colors">
                   {title}
@@ -183,22 +173,18 @@ const HowItWorksSection = () => {
                 <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-sm">
                   {desc}
                 </p>
-                
-                {/* Stats indicator */}
+           
                 <div className="flex items-center gap-2 pt-0.5">
                   <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${gradient}`}></div>
                   <span className="text-sm font-medium text-gray-500">Step {i + 1}</span>
                 </div>
               </div>
 
-              {/* Hover effect overlay */}
               <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
-              
-              {/* Subtle border glow on hover */}
+
               <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}></div>
             </div>
 
-            {/* Arrow connector */}
             {i < steps.length - 1 && (
               <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
                 <motion.div
@@ -214,7 +200,7 @@ const HowItWorksSection = () => {
         ))}
       </div>
 
-      {/* Bottom CTA */}
+     
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : {}}

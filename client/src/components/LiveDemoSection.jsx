@@ -42,12 +42,11 @@ const LiveDemoSection = () => {
 
   return (
     <section className="live-demo-section py-12 w-full px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background decorations */}
+    
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-white to-purple-50/50"></div>
       <div className="absolute top-10 right-10 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-10 left-10 w-96 h-96 bg-gradient-to-r from-pink-400/20 to-orange-400/20 rounded-full blur-3xl"></div>
       
-      {/* Section header */}
       <div className="relative text-center mb-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -78,7 +77,6 @@ const LiveDemoSection = () => {
         </motion.p>
       </div>
 
-      {/* Tab Navigation */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -106,7 +104,6 @@ const LiveDemoSection = () => {
         </div>
       </motion.div>
 
-      {/* Demo Content */}
       <div className="relative max-w-6xl mx-auto">
         <motion.div
           key={activeTab}
@@ -116,10 +113,8 @@ const LiveDemoSection = () => {
           transition={{ duration: 0.5 }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
         >
-          {/* Demo Preview */}
           <div className="relative">
             <div className="bg-white rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-              {/* Demo Header */}
               <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center gap-3">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
@@ -131,7 +126,6 @@ const LiveDemoSection = () => {
                 </div>
               </div>
               
-              {/* Demo Content */}
               <div className="p-6">
                 {activeTab === 'form' ? (
                   <div className="space-y-4">
@@ -158,7 +152,6 @@ const LiveDemoSection = () => {
               </div>
             </div>
             
-            {/* Floating Action Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -169,14 +162,12 @@ const LiveDemoSection = () => {
             </motion.button>
           </div>
 
-          {/* Demo Info */}
           <div className="space-y-6">
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">{currentDemo.title}</h3>
               <p className="text-gray-600 leading-relaxed mb-6">{currentDemo.desc}</p>
             </div>
 
-            {/* Features */}
             <div className="space-y-3">
               {currentDemo.features.map((feature, index) => (
                 <motion.div
@@ -194,7 +185,6 @@ const LiveDemoSection = () => {
               ))}
             </div>
 
-            {/* Stats */}
             <div className="grid grid-cols-3 gap-4 pt-4">
               {Object.entries(currentDemo.stats).map(([key, value], index) => (
                 <motion.div
@@ -210,7 +200,6 @@ const LiveDemoSection = () => {
               ))}
             </div>
 
-            {/* CTA Button */}
             <motion.button
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -228,7 +217,6 @@ const LiveDemoSection = () => {
         </motion.div>
       </div>
 
-      {/* Modal */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
@@ -246,7 +234,7 @@ const LiveDemoSection = () => {
               className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header */}
+
               <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -262,7 +250,7 @@ const LiveDemoSection = () => {
                 </div>
               </div>
               
-              {/* Modal Content */}
+
               <div className="p-6">
                 <div className="text-center space-y-4">
                   <div className="w-16 h-16 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto">

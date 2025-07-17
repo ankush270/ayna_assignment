@@ -131,14 +131,9 @@ const Login = () => {
             {/* Header */}
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
-                    <Lock className="w-7 h-7 text-white" />
+                  <div className="flex items-center justify-center">
+                    <img src="/logo.svg" alt="Logo" className="w-12 h-12 object-contain" />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-3 h-3 text-white" />
-                  </div>
-                </div>
                 <div>
                   <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
                   <p className="text-gray-600">Sign in to your AYNA account</p>
@@ -314,32 +309,43 @@ const Login = () => {
             </div>
           </motion.div>
 
-          {/* Right: Login SVG */}
+          {/* Right: Illustration & Security Message */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white/80 backdrop-blur-sm border border-white/20 p-8 lg:p-12 flex flex-col items-center justify-center text-center w-full h-full rounded-r-3xl"
+            transition={{ duration: 0.7 }}
+            className="relative flex flex-col items-center justify-center bg-gradient-to-br from-white/80 to-purple-50/80 p-8 lg:p-12 h-full w-full rounded-r-3xl overflow-hidden"
           >
+            {/* Animated SVG blob background */}
+            <motion.svg
+              className="absolute -top-10 -left-10 w-80 h-80 opacity-30 pointer-events-none z-0"
+              viewBox="0 0 200 200"
+              xmlns="http://www.w3.org/2000/svg"
+              initial={{ scale: 1, rotate: 0 }}
+              animate={{ scale: [1, 1.08, 1], rotate: [0, 8, -8, 0] }}
+              transition={{ repeat: Infinity, duration: 14, ease: 'linear' }}
+            >
+              <path fill="#a5b4fc" d="M44.8,-67.2C56.7,-59.2,63.7,-44.2,68.2,-29.2C72.7,-14.2,74.7,0.8,70.2,13.7C65.7,26.6,54.7,37.4,42.2,47.2C29.7,57,14.8,65.8,-0.7,66.7C-16.2,67.6,-32.4,60.6,-44.2,50.1C-56,39.6,-63.3,25.6,-66.2,10.7C-69.1,-4.2,-67.6,-20.1,-60.7,-32.7C-53.8,-45.3,-41.5,-54.7,-28.1,-62.2C-14.7,-69.7,0,-75.2,14.2,-74.2C28.4,-73.2,56.7,-75.2,44.8,-67.2Z" transform="translate(100 100)" />
+            </motion.svg>
             <motion.img
               src="/login.svg"
               alt="Login illustration"
-              className="max-w-md w-full h-auto drop-shadow-2xl mb-6"
+              className="max-w-md w-full h-auto drop-shadow-2xl mb-6 z-10"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
+              whileHover={{ scale: 1.04 }}
             />
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="max-w-sm"
+              className="max-w-md mx-auto bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center gap-3"
             >
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                Secure & Simple
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Your data is protected with enterprise-grade security. Sign in to access your forms and insights.
+              <img src="/logo.svg" alt="Logo" className="w-12 h-12 mb-2 drop-shadow" />
+              <p className="text-gray-700 text-lg text-center leading-relaxed font-medium">
+                Your data is protected with <span className="font-semibold text-blue-600">enterprise-grade security</span>.<br />
+                Sign in to access your forms and insights.
               </p>
             </motion.div>
           </motion.div>
