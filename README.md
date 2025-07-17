@@ -162,16 +162,8 @@ Ayna_assignment/
 - Advanced response analytics and export (CSV, Excel)
 - User profile management
 - Improved error handling and validation
-- Deployment scripts and CI/CD
 - Team collaboration features
 - Custom branding and themes
 
 ---
-
-## License
-MIT (or specify your license)
-
----
-
-## Contact
-For questions or contributions, open an issue or pull request on GitHub. 
+ 
