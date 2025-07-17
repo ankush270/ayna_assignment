@@ -7,7 +7,7 @@ const optionSchema = new mongoose.Schema({
 const questionSchema = new mongoose.Schema({
   text: { type: String, required: true },
   type: { type: String, enum: ['text', 'mcq'], required: true },
-  options: [optionSchema] // Only for MCQ
+  options: [optionSchema] 
 });
 
 const formSchema = new mongoose.Schema({

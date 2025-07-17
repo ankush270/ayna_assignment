@@ -1,17 +1,20 @@
 # AYNA: Form Builder & Response Platform
 
+![AYNA Logo](client/public/logo.svg)
+
 ## Overview
-AYNA is a full-stack web application that allows users to create, share, and collect responses for custom forms. It features a modern React frontend and a secure, scalable Express/MongoDB backend. The platform supports user authentication, form creation, public form sharing, and response analytics.
+AYNA is a modern full-stack web application for creating, sharing, and collecting responses for custom forms. It features a beautiful React frontend and a secure, scalable Express/MongoDB backend. The platform supports user authentication, drag-and-drop form creation, public form sharing, and live response analytics.
 
 ---
 
 ## Features
 - **User Authentication:** Secure registration and login with JWT-based sessions.
-- **Form Builder:** Authenticated users can create forms with text and multiple-choice questions.
-- **Public Form Sharing:** Share forms via public URLs for anyone to submit responses.
-- **Response Collection:** Collect and view responses for each form.
-- **Dashboard:** Visual overview of forms, responses, and recent activity.
-- **Modern UI:** Responsive, accessible, and visually appealing interface using Tailwind CSS and Framer Motion.
+- **Drag & Drop Form Builder:** Authenticated users can create forms with text and multiple-choice questions using an intuitive interface.
+- **Public Form Sharing:** Instantly share forms via public URLs for anyone to submit responses—no login required for respondents.
+- **Response Collection & Analytics:** Collect and view responses for each form, with a dashboard for live analytics and recent activity.
+- **Dashboard:** Visual overview of forms, responses, and activity.
+- **Modern UI/UX:** Responsive, accessible, and visually appealing interface using Tailwind CSS and Framer Motion.
+- **Security:** Password hashing, JWT, and CORS for secure operations.
 
 ---
 
@@ -20,12 +23,18 @@ AYNA is a full-stack web application that allows users to create, share, and col
 | Area         | Feature/Functionality                | File/Location                        |
 |--------------|-------------------------------------|--------------------------------------|
 | Auth         | Register/Login/JWT                  | `server/routes/auth.js`, `client/src/pages/Login.jsx`, `SignUp.jsx`, `store.js` |
-| Form Builder | Create/Edit Forms                   | `server/routes/forms.js`, `client/src/pages/Forms.jsx`, `Dashboard.jsx` |
+| Form Builder | Create/Edit Forms (Drag & Drop)     | `server/routes/forms.js`, `client/src/pages/Forms.jsx`, `Dashboard.jsx` |
 | Public Share | Public Form Access/Submission       | `server/routes/forms.js`, `client/src/pages/PublicForm.jsx` |
-| Responses    | Collect/View Responses              | `server/routes/forms.js`, `client/src/pages/FormDetails.jsx` |
+| Responses    | Collect/View Responses, Analytics   | `server/routes/forms.js`, `client/src/pages/FormDetails.jsx`, `Dashboard.jsx` |
 | State Mgmt   | Redux Auth Slice                    | `client/src/store.js`                |
 | UI/UX        | Modern, Responsive, Animated        | `client/src/components/`, Tailwind, Framer Motion |
 | Security     | Password Hashing, JWT, CORS         | `server/middleware/auth.js`, `server/routes/auth.js` |
+
+---
+
+## Demo
+<!-- If you have a live deployment, add the link here -->
+<!-- [Live Demo](https://your-ayna-demo-url.com) -->
 
 ---
 
@@ -122,6 +131,7 @@ Ayna_assignment/
 - Responsive, accessible UI with modern design.
 - Real-time feedback and error handling.
 - Public forms can be shared and filled by anyone, but only authenticated users can create/manage forms.
+- Drag-and-drop builder for easy form creation (minimum 3, maximum 5 questions per form; MCQ options: 2-5 per question).
 
 ### 5. **Extensibility**
 - Modular codebase: easy to add new question types, analytics, or integrations.
@@ -143,11 +153,13 @@ Ayna_assignment/
 ---
 
 ## Future Improvements
-- Add more question types (dropdown, rating, etc.)
-- Response analytics and export
+- Add more question types (dropdown, rating, file upload, etc.)
+- Advanced response analytics and export (CSV, Excel)
 - User profile management
 - Improved error handling and validation
 - Deployment scripts and CI/CD
+- Team collaboration features
+- Custom branding and themes
 
 ---
 

@@ -5,7 +5,7 @@ import User from "../models/user.js";
 
 const router = express.Router();
 
-// Register endpoint
+
 router.post("/register", async (req, res) => {
   try {
     const { firstname, lastname, email, password } = req.body;

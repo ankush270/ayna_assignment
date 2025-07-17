@@ -115,12 +115,11 @@ const TestimonialsSection = () => {
 
   return (
     <section className="testimonials-section py-6 w-full px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background decorations */}
+
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50/30"></div>
       <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-r from-pink-400/10 to-orange-400/10 rounded-full blur-3xl"></div>
-      
-      {/* Section header */}
+
       <div className="relative text-center mb-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -150,8 +149,6 @@ const TestimonialsSection = () => {
           See how teams are transforming their feedback collection and improving their processes
         </motion.p>
       </div>
-
-      {/* Stats Overview */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -179,7 +176,7 @@ const TestimonialsSection = () => {
         </div>
       </motion.div>
 
-      {/* Testimonials Carousel */}
+      
       <div className="relative max-w-6xl mx-auto">
         <div className="relative overflow-hidden rounded-3xl">
           <AnimatePresence mode="wait">
@@ -193,9 +190,9 @@ const TestimonialsSection = () => {
             >
                              <div className={`bg-gradient-to-br ${currentTestimonial.bgColor} p-4 md:p-6 rounded-3xl border border-white/20 shadow-xl`}>
                                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
-                                     {/* Testimonial Content */}
+                                  
                    <div className="space-y-3">
-                    {/* Quote */}
+                
                     <div className="relative">
                                              <Quote className="w-6 h-6 text-gray-400 mb-2" />
                       <blockquote className="text-base md:text-lg text-gray-800 leading-relaxed font-medium">
@@ -203,7 +200,7 @@ const TestimonialsSection = () => {
                       </blockquote>
                     </div>
 
-                    {/* Author Info */}
+            
                                          <div className="flex items-center gap-2">
                       <div className="relative">
                                                  <img 
@@ -222,7 +219,7 @@ const TestimonialsSection = () => {
                       </div>
                     </div>
 
-                    {/* Rating */}
+                
                     <div className="flex items-center gap-2">
                       {[...Array(currentTestimonial.rating)].map((_, i) => (
                         <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
@@ -231,7 +228,6 @@ const TestimonialsSection = () => {
                     </div>
                   </div>
 
-                                     {/* Improvement Stats */}
                    <div className="space-y-3">
                     <div className="text-center">
                                              <div className={`inline-flex items-center gap-2 bg-gradient-to-r ${currentTestimonial.color} text-white px-4 py-2 rounded-full text-base font-bold shadow-lg`}>
@@ -289,7 +285,6 @@ const TestimonialsSection = () => {
         </div>
       </div>
 
-      {/* Bottom CTA */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : {}}
